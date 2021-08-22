@@ -1,1 +1,5 @@
-CannonCore
+#CannonCore
+
+#Current features:
+- Magicsand
+- Fire
