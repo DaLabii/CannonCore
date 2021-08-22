@@ -1,0 +1,15 @@
+name: CannonCore
+main: dalabi.cannon.Main
+author: DaLabi
+version: 1.0.0
+description: should work
+commands:
+  cannoncore:
+    description: main plugin command.
+  ms:
+    description: gives magicsand.
+    aliases: [magicsand,sand,sandbot,magic]
+  refill:
+    description: refills nearby magicsand.
+  fire:
+    description: fires a button.

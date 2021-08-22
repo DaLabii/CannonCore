@@ -1,0 +1,62 @@
+cannoncore:
+  permission:
+    reload: 'cannoncore.reload'
+  message:
+    config_reloaded: 'config reloaded'
+    no_permission: 'no permission'
+    invalid_args: 'invalid args'
+#########################################################################
+
+#########################################################################
+magicsand:
+  enabled: true
+  permission:
+    use: 'cannoncore.magicsand.command.use'
+    bypass_refill_cooldown: 'cannoncore.magicsand.bypass.refill'
+    bypass_clear_cooldown: 'cannoncore.magicsand.bypass.clear'
+  message:
+    no_permission: 'No permission'
+    invalid_args: 'Invalid args'
+    limit_reached: 'Limit reached'
+    refilled: '%count% Magicsand refilled'
+    cleared: 'cleared all Magicsand'
+    on_refill_cooldown: 'on refill cooldown'
+    on_clear_cooldown: 'on clear cooldown'
+  limit: 666
+  cooldown:
+    refill: 15
+    clear: 15
+  sand:
+    item:
+      material: WOOL
+      data: 4
+      name: '&7[&3MagicSand&7] &7- &eSand'
+      lore:
+        - '&7Use this block to place infinite sand'
+  red_sand:
+    item:
+      material: WOOL
+      data: 1
+      name: '&7[&3MagicSand&7] &7- &cRedSand'
+      lore:
+        - '&7Use this block to place infinite red sand'
+  gravel:
+    item:
+      material: WOOL
+      data: 7
+      name: '&7[&3MagicSand&7] &7- &7Gravel'
+      lore:
+        - '&7Use this block to place infinite gravel'
+#########################################################################
+
+#########################################################################
+button:
+  enabled: true
+  permission:
+    use: 'cannoncore.button.command.use'
+  message:
+    pressed: '&fButton Pressed &7(&8X: %x% Y: %y% Z: %z%&7)'
+    not_found: 'no button found'
+    no_permission: 'no permission'
+    invalid_args: 'invalid args'
+  
