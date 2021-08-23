@@ -2,35 +2,33 @@ package dalabi.cannon.magicsand;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 
 public class Magicsand {
-	
-	Player player;
+
 	Block block;
 	int material;
 	byte data;
 	int counter;
 
-	public Magicsand(Player player, Block block, int material, byte data, int counter) {
-		this.player = player;
+	public Magicsand(Block block, int material, byte data, int counter) {
 		this.block = block;
 		this.material = material;
 		this.data = data;
 		this.counter = counter;
 	}
 
-	private static final Map<Player, Set<Magicsand>> MagicsandStorageMap = new ConcurrentHashMap<>();
+	private static final Map<UUID, Set<Magicsand>> MagicsandStorageMap = new ConcurrentHashMap<>();
 
-	public static Map<Player, Set<Magicsand>> getMagicsandStorageMap() {
+	public static Map<UUID, Set<Magicsand>> getMagicsandStorageMap() {
 		return MagicsandStorageMap;
 	}
 
-	public static Set<Magicsand> getMagicsandByPlayer(Player player) {
-		return MagicsandStorageMap.getOrDefault(player, null);
+	public static Set<Magicsand> getMagicsandByPlayer(UUID uuid) {
+		return MagicsandStorageMap.getOrDefault(uuid, null);
 	}
 
 	public Block getBlock() {
@@ -53,11 +51,11 @@ public class Magicsand {
 		this.counter = counter;
 	}
 
-	public static void putFirstMagicsand(Player player, Set<Magicsand> ms) {
-		MagicsandStorageMap.put(player, ms);
+	public static void putFirstMagicsand(UUID uuid, Set<Magicsand> ms) {
+		MagicsandStorageMap.put(uuid, ms);
 	}
 
-	public static void addMagicsand(Player player, Magicsand ms) {
-		MagicsandStorageMap.get(player).add(ms);
+	public static void addMagicsand(UUID uuid, Magicsand ms) {
+		MagicsandStorageMap.get(uuid).add(ms);
 	}
 }

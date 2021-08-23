@@ -1,4 +1,4 @@
-package dalabi.cannon.fire;
+package dalabi.cannon.lever;
 
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -6,7 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class FireEvents implements Listener {
+public class LeverEvents implements Listener{
+
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
@@ -14,9 +15,9 @@ public class FireEvents implements Listener {
 			return;
 		}
 		final Material clicked = event.getClickedBlock().getType();
-		if (clicked != Material.STONE_BUTTON && clicked != Material.WOOD_BUTTON) {
+		if (clicked != Material.LEVER) {
 			return;
 		}
-		Fire.setButtonBlock(event.getPlayer().getUniqueId(), event.getClickedBlock());
+		dalabi.cannon.lever.Lever.setLeverBlock(event.getPlayer().getUniqueId(), event.getClickedBlock());
 	}
 }

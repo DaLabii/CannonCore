@@ -2,19 +2,19 @@ package dalabi.cannon.fire;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 
 public class Fire {
 	
-	private static final Map<Player, Block> buttons = new HashMap<>();
+	private static final Map<UUID, Block> buttons = new HashMap<>();
 
-	public static Block getButtonBlock(Player player) {
-		return buttons.getOrDefault(player, null);
+	public static Block getButtonBlock(UUID uuid) {
+		return buttons.getOrDefault(uuid, null);
 	}
 
-	public static void setButtonBlock(Player player, Block block) {
-		buttons.put(player, block);
+	public static void setButtonBlock(UUID uuid, Block block) {
+		buttons.put(uuid, block);
 	}
 }

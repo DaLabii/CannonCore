@@ -13,3 +13,5 @@ commands:
     description: refills nearby magicsand.
   fire:
     description: fires a button.
+  lever:
+    description: flicks a lever.

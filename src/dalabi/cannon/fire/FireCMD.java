@@ -12,6 +12,7 @@ import dalabi.cannon.Config;
 import dalabi.cannon.GeneralUtil;
 
 public class FireCMD implements CommandExecutor {
+	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player) {
 			final Player player = (Player) sender;
@@ -19,11 +20,12 @@ public class FireCMD implements CommandExecutor {
 				GeneralUtil.sendMSG(player, Config.button_no_permission_message);
 				return false;
 			}
-			if (Fire.getButtonBlock(player) == null) {
+			if (Fire.getButtonBlock(player.getUniqueId()) == null) {
 				GeneralUtil.sendMSG(player, Config.button_not_found_message);
 				return false;
 			}
-			Block block = Fire.getButtonBlock(player);
+			Block block = Fire.getButtonBlock(player.getUniqueId());
+			// found some issues with it suddenly not updating when you are not loading the chunk, no clue why though
 			if (block.getType() == Material.STONE_BUTTON) {
 				Button button = (Button) block.getState().getData();
 				FireUtil.updateButton(block, button, 21);

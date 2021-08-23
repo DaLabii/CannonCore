@@ -4,6 +4,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import dalabi.cannon.fire.FireCMD;
 import dalabi.cannon.fire.FireEvents;
+import dalabi.cannon.lever.LeverCMD;
+import dalabi.cannon.lever.LeverEvents;
 import dalabi.cannon.magicsand.MagicsandCMD;
 import dalabi.cannon.magicsand.MagicsandEvents;
 import dalabi.cannon.magicsand.MagicsandRefillCMD;
@@ -14,24 +16,28 @@ public class Main extends JavaPlugin {
 
 	public void onEnable() {
 		Main.main = this;
-		this.getConfig().options().copyDefaults(true);
-		this.saveDefaultConfig();
+		getConfig().options().copyDefaults(true);
+		saveDefaultConfig();
 		Config.reload();
-		this.getCommand("cannoncore").setExecutor(new CannonCoreCMD());
+		getCommand("cannoncore").setExecutor(new CannonCoreCMD());
 		if (Config.magicsand_enabled) {
-			this.getCommand("refill").setExecutor(new MagicsandRefillCMD());
-			this.getCommand("ms").setExecutor(new MagicsandCMD());
-			this.getServer().getPluginManager().registerEvents(new MagicsandEvents(), this);
+			getCommand("refill").setExecutor(new MagicsandRefillCMD());
+			getCommand("ms").setExecutor(new MagicsandCMD());
+			getServer().getPluginManager().registerEvents(new MagicsandEvents(), this);
 			MagicsandUtil.startMagicsandTasks();
 		}
 		if (Config.button_enabled) {
-			this.getCommand("fire").setExecutor(new FireCMD());
-			this.getServer().getPluginManager().registerEvents(new FireEvents(), this);
+			getCommand("fire").setExecutor(new FireCMD());
+			getServer().getPluginManager().registerEvents(new FireEvents(), this);
+		}
+		if (Config.lever_enabled) {
+			getCommand("lever").setExecutor(new LeverCMD());
+			getServer().getPluginManager().registerEvents(new LeverEvents(), this);
 		}
 	}
 
 	public static Main getInstance() {
-		return Main.main;
+		return main;
 	}
 
 }

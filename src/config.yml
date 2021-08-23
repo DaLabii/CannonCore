@@ -59,4 +59,15 @@ button:
     not_found: 'no button found'
     no_permission: 'no permission'
     invalid_args: 'invalid args'
-  
+#########################################################################
+
+#########################################################################
+lever:
+  enabled: true
+  permission:
+    use: 'cannoncore.lever.command.use'
+  message:
+    flicked: '&fLever Flicked &7(&8X: %x% Y: %y% Z: %z%&7)'
+    not_found: 'no lever found'
+    no_permission: 'no permission'
+    invalid_args: 'invalid args'

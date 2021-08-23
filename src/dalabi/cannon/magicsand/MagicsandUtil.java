@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -24,6 +25,7 @@ import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.IBlockData;
 
 public class MagicsandUtil {
+
 	public static boolean hasClearCooldown(Player player) {
 		if (!CooldownManager.hasActiveCooldown(player)) {
 			return false;
@@ -42,10 +44,10 @@ public class MagicsandUtil {
 	}
 
 	public static void clearMagicsand(Player player) {
-		if (Magicsand.getMagicsandByPlayer(player) == null) {
+		if (Magicsand.getMagicsandByPlayer(player.getUniqueId()) == null) {
 			return;
 		}
-		for (Magicsand magicsand : Magicsand.getMagicsandByPlayer(player)) {
+		for (Magicsand magicsand : Magicsand.getMagicsandByPlayer(player.getUniqueId())) {
 			Block block = magicsand.getBlock();
 			if (!block.hasMetadata("magicsand")) {
 				continue;
@@ -79,11 +81,11 @@ public class MagicsandUtil {
 
 	public static void refillMagicsand(Player player) {
 		int refilled = 0;
-		if (Magicsand.getMagicsandByPlayer(player) == null) {
+		if (Magicsand.getMagicsandByPlayer(player.getUniqueId()) == null) {
 			refilled = scanBlocks(player.getLocation(), player, Config.magicsand_limit - 0);
 		} else {
 			refilled = scanBlocks(player.getLocation(), player,
-					Config.magicsand_limit - Magicsand.getMagicsandByPlayer(player).size());
+					Config.magicsand_limit - Magicsand.getMagicsandByPlayer(player.getUniqueId()).size());
 		}
 		GeneralUtil.sendMSG(player, Config.magicsand_refilled_message.replace("%count%", String.valueOf(refilled)));
 		Map<String, Long> cooldown = new HashMap<>();
@@ -114,18 +116,18 @@ public class MagicsandUtil {
 					if (data == 99) {
 						continue;
 					}
-					if (Magicsand.getMagicsandByPlayer(player) == null) {
+					if (Magicsand.getMagicsandByPlayer(player.getUniqueId()) == null) {
 						Set<Magicsand> msSet = new HashSet<>();
-						Magicsand magicsand = new Magicsand(player, block,
+						Magicsand magicsand = new Magicsand(block,
 								translateMagicsandItemDataToMaterialID(block.getData()),
 								translateMagicsandItemDataToBlockData(block.getData()), 1);
 						msSet.add(magicsand);
-						Magicsand.putFirstMagicsand(player, msSet);
+						Magicsand.putFirstMagicsand(player.getUniqueId(), msSet);
 					} else {
-						Magicsand magicsand = new Magicsand(player, block,
+						Magicsand magicsand = new Magicsand(block,
 								translateMagicsandItemDataToMaterialID(block.getData()),
 								MagicsandUtil.translateMagicsandItemDataToBlockData(block.getData()), 1);
-						Magicsand.addMagicsand(player, magicsand);
+						Magicsand.addMagicsand(player.getUniqueId(), magicsand);
 					}
 					block.setMetadata("magicsand", new FixedMetadataValue(Main.getInstance(), "cannoncore"));
 					count++;
@@ -145,18 +147,19 @@ public class MagicsandUtil {
 
 			public void run() {
 
-				for (Player player : Magicsand.getMagicsandStorageMap().keySet()) {
-					if (!Bukkit.getOnlinePlayers().contains(player)) {
+				for (UUID uuid : Magicsand.getMagicsandStorageMap().keySet()) {
+					if (!Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(uuid))) {
 						continue;
 					}
-					for (Magicsand magicsand : Magicsand.getMagicsandByPlayer(player)) {
+					for (Magicsand magicsand : Magicsand.getMagicsandByPlayer(uuid)) {
+						// should probably move away from metadata
 						if (!magicsand.getBlock().hasMetadata("magicsand")) {
-							if (MagicsandRemovable.containsPlayer(player)) {
-								MagicsandRemovable.addToRemovable(player, magicsand);
+							if (MagicsandRemovable.containsPlayer(uuid)) {
+								MagicsandRemovable.addToRemovable(uuid, magicsand);	
 							} else {
 								List<Magicsand> removables = new ArrayList<>();
 								removables.add(magicsand);
-								MagicsandRemovable.putInRemovable(player, removables);
+								MagicsandRemovable.putInRemovable(uuid, removables);
 							}
 							continue;
 						}
@@ -179,10 +182,10 @@ public class MagicsandUtil {
 						}
 					}
 				}
-				for (Player player : MagicsandRemovable.getRemovable().keySet()) {
-					for (Magicsand block : MagicsandRemovable.getRemovable().get(player)) {
+				for (UUID uuid : MagicsandRemovable.getRemovable().keySet()) {
+					for (Magicsand block : MagicsandRemovable.getRemovable().get(uuid)) {
 						try {
-							Magicsand.getMagicsandByPlayer(player).remove(block);
+							Magicsand.getMagicsandByPlayer(uuid).remove(block);
 						} catch (Exception e) {
 						}
 					}
@@ -221,7 +224,7 @@ public class MagicsandUtil {
 			return 12;
 		}
 		if (data == Config.magicsand_red_sand_item_data) {
-			return 12;	
+			return 12;
 		}
 		if (data == Config.magicsand_gravel_item_data) {
 			return 13;

@@ -2,28 +2,27 @@ package dalabi.cannon.magicsand;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.bukkit.entity.Player;
 
 public class MagicsandRemovable {
 	
-	private static Map<Player, List<Magicsand>> removable = new ConcurrentHashMap<>();
+	private static Map<UUID, List<Magicsand>> removable = new ConcurrentHashMap<>();
 
-	public static Map<Player, List<Magicsand>> getRemovable() {
+	public static Map<UUID, List<Magicsand>> getRemovable() {
 		return removable;
 	}
 
-	public static boolean containsPlayer(Player player) {
-		return removable.containsKey(player);
+	public static boolean containsPlayer(UUID uuid) {
+		return removable.containsKey(uuid);
 	}
 
-	public static void addToRemovable(Player player, Magicsand block) {
-		removable.get(player).add(block);
+	public static void addToRemovable(UUID uuid, Magicsand block) {
+		removable.get(uuid).add(block);
 	}
 
-	public static void putInRemovable(Player player, List<Magicsand> blocks) {
-		removable.put(player, blocks);
+	public static void putInRemovable(UUID uuid, List<Magicsand> blocks) {
+		removable.put(uuid, blocks);
 	}
 
 	public static void clearRemovable() {

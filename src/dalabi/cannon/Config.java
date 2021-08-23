@@ -45,9 +45,18 @@ public class Config {
 	public static String button_not_found_message;
 	public static String button_no_permission_message;
 	public static String button_invalid_args_message;
+	
+	public static boolean lever_enabled;
+	public static String lever_command_permission;
+	public static String lever_flicked_message;
+	public static String lever_not_found_message;
+	public static String lever_no_permission_message;
+	public static String lever_invalid_args_message;
 
 	public static void reload() {
+		
 		Main.getInstance().reloadConfig();
+		
 		cannoncore_reload_permission = Main.getInstance().getConfig().getString("cannoncore.permission.reload");
 		cannoncore_reload_message = Main.getInstance().getConfig().getString("cannoncore.message.config_reloaded");
 		cannoncore_no_permission_message = Main.getInstance().getConfig().getString("cannoncore.message.no_permission");
@@ -85,11 +94,19 @@ public class Config {
 		magicsand_gravel_item_data = (byte) Main.getInstance().getConfig().getInt("magicsand.gravel.item.data");
 		magicsand_gravel_item_name = Main.getInstance().getConfig().getString("magicsand.gravel.item.name");
 		magicsand_gravel_item_lore.addAll(Main.getInstance().getConfig().getStringList("magicsand.gravel.item.lore"));
+		
 		button_enabled = Main.getInstance().getConfig().getBoolean("button.enabled");
 		button_command_permission = Main.getInstance().getConfig().getString("button.permission.use");
 		button_pressed_message = Main.getInstance().getConfig().getString("button.message.pressed");
 		button_not_found_message = Main.getInstance().getConfig().getString("button.message.not_found");
 		button_no_permission_message = Main.getInstance().getConfig().getString("button.message.no_permission");
 		button_invalid_args_message = Main.getInstance().getConfig().getString("button.message.invalid_args");
+		
+		lever_enabled = Main.getInstance().getConfig().getBoolean("lever.enabled");
+		lever_command_permission = Main.getInstance().getConfig().getString("lever.permission.use");
+		lever_flicked_message = Main.getInstance().getConfig().getString("lever.message.flicked");
+		lever_not_found_message = Main.getInstance().getConfig().getString("lever.message.not_found");
+		lever_no_permission_message = Main.getInstance().getConfig().getString("lever.message.no_permission");
+		lever_invalid_args_message = Main.getInstance().getConfig().getString("lever.message.invalid_args");
 	}
 }

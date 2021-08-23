@@ -39,25 +39,25 @@ public class MagicsandEvents implements Listener {
 						ChatColor.translateAlternateColorCodes('&', Config.magicsand_gravel_item_name))) {
 			return;
 		}
-		if (Magicsand.getMagicsandByPlayer(event.getPlayer()) == null) {
+		if (Magicsand.getMagicsandByPlayer(event.getPlayer().getUniqueId()) == null) {
 			Set<Magicsand> msSet = new HashSet<>();
-			Magicsand magicsand = new Magicsand(event.getPlayer(), event.getBlock(),
+			Magicsand magicsand = new Magicsand(event.getBlock(),
 					MagicsandUtil.translateMagicsandItemDataToMaterialID(event.getBlock().getData()),
 					MagicsandUtil.translateMagicsandItemDataToBlockData(event.getBlock().getData()), 1);
 			msSet.add(magicsand);
-			Magicsand.putFirstMagicsand(event.getPlayer(), msSet);
+			Magicsand.putFirstMagicsand(event.getPlayer().getUniqueId(), msSet);
 			event.getBlock().setMetadata("magicsand", new FixedMetadataValue(Main.getInstance(), "cannoncore"));
 			return;
 		}
-		if (Magicsand.getMagicsandByPlayer(event.getPlayer()).size() >= Config.magicsand_limit) {
+		if (Magicsand.getMagicsandByPlayer(event.getPlayer().getUniqueId()).size() >= Config.magicsand_limit) {
 			GeneralUtil.sendMSG(player, Config.magicsand_limit_reached_message);
 			event.setCancelled(true);
 			return;
 		}
-		Magicsand magicsand = new Magicsand(event.getPlayer(), event.getBlock(),
+		Magicsand magicsand = new Magicsand(event.getBlock(),
 				MagicsandUtil.translateMagicsandItemDataToMaterialID(event.getBlock().getData()),
 				MagicsandUtil.translateMagicsandItemDataToBlockData(event.getBlock().getData()), 1);
-		Magicsand.addMagicsand(event.getPlayer(), magicsand);
+		Magicsand.addMagicsand(event.getPlayer().getUniqueId(), magicsand);
 		event.getBlock().setMetadata("magicsand", new FixedMetadataValue(Main.getInstance(), "cannoncore"));
 
 	}
