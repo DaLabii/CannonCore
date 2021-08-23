@@ -7,3 +7,4 @@
 # Current features:
 - Magicsand
 - Fire
+- Lever
