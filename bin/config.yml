@@ -22,7 +22,12 @@ magicsand:
     cleared: 'cleared all Magicsand'
     on_refill_cooldown: 'on refill cooldown'
     on_clear_cooldown: 'on clear cooldown'
-  limit: 666
+    help: 
+    - '/ms sand - gives regular magicsand'
+    - '/ms redsand - gives red magicsand'
+    - '/ms gravel - gives gravel magicsand'
+  limit: 10000
+  refill_limit: 1000
   cooldown:
     refill: 15
     clear: 15
@@ -55,7 +60,7 @@ button:
   permission:
     use: 'cannoncore.button.command.use'
   message:
-    pressed: '&fButton Pressed &7(&8X: %x% Y: %y% Z: %z%&7)'
+    pressed: '&3Button Pressed &7(&3X: &f%x% &3Y: &f%y% &3Z: &f%z%&7)'
     not_found: 'no button found'
     no_permission: 'no permission'
     invalid_args: 'invalid args'
@@ -67,7 +72,27 @@ lever:
   permission:
     use: 'cannoncore.lever.command.use'
   message:
-    flicked: '&fLever Flicked &7(&8X: %x% Y: %y% Z: %z%&7)'
+    flicked: '&3Lever Flicked &7(&3X: &f%x% &3Y: &f%y% &3Z: &f%z%&7)'
     not_found: 'no lever found'
     no_permission: 'no permission'
     invalid_args: 'invalid args'
+#########################################################################
+
+#########################################################################
+tick_counter:
+  enabled: true
+  message:
+    added: '&3Ticks: &7(&3GT: &f%gt% &7| &3RT: &f%rt%&7)'
+    reset: '&3Ticks reset'
+    given: '&3Tick counter given'
+#########################################################################
+
+#########################################################################
+build_helper:
+  enabled: true
+  permission: 
+    use: 'cannoncore.buildhelper.use'
+  message:
+    no_permission: 'no permission'
+    enabled: 'buildhelper enabled'
+    disabled: 'buildhelper disabled'
