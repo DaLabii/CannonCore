@@ -10,6 +10,9 @@ import dalabi.cannon.Main;
 
 public class FireUtil {
 
+	/*
+	 * updates button once, then after the specified ticks updates it again
+	 */
 	@SuppressWarnings("deprecation")
 	public static void updateButton(Block block, Button button, int ticks) {
 		int data = block.getData();
@@ -27,6 +30,10 @@ public class FireUtil {
 		}, ticks);
 	}
 
+	/*
+	 * updates blocks next to the button, updating the button itself won't affect
+	 * the nearby blocks
+	 */
 	public static void updateNearbyBlocks(Block block, Button button) {
 		Block supportBlock = block.getRelative(button.getAttachedFace());
 		BlockState initialSupportState = supportBlock.getState();
