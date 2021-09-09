@@ -15,3 +15,10 @@ commands:
     description: fires a button.
   lever:
     description: flicks a lever.
+  tickcounter:
+    description: counts ticks on repeaters.
+    aliases: [tc]
+  buildhelper:
+    description: toggles build helper mode.
+    aliases: [bh]
+    
