@@ -14,8 +14,8 @@ public class MagicsandRefillCMD implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (!sender.hasPermission(Config.magicsand_use_permission)) {
-				GeneralUtil.sendMSG(player, Config.magicsand_no_permission_message);
+			if (!sender.hasPermission(Config.getConfig().magicsand_use_permission)) {
+				GeneralUtil.sendMessage(player, Config.getConfig().magicsand_no_permission_message);
 				return false;
 			}
 			if (!MagicsandUtil.hasRefillCooldown(player)) {
