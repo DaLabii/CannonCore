@@ -2,34 +2,45 @@ package dalabi.cannon;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.bukkit.entity.Player;
+import java.util.UUID;
 
 public class CooldownManager {
-	
-	private static Map<Player, Map<String, Long>> cooldownMap = new HashMap<>();
 
-	public static Map<Player, Map<String, Long>> getCooldownMap() {
+	private static CooldownManager manager;
+
+	public CooldownManager() {
+		manager = this;
+	}
+
+	public static CooldownManager getCooldownManager() {
+		return manager;
+	}
+
+	private Map<UUID, Map<String, Long>> cooldownMap = new HashMap<>();
+
+	public Map<UUID, Map<String, Long>> getCooldownMap() {
 		return cooldownMap;
 	}
 
-	public static boolean hasActiveCooldown(Player player) {
-		return cooldownMap.containsKey(player);
+	public boolean hasAnyActiveCooldown(UUID uuid) {
+		return cooldownMap.containsKey(uuid);
 	}
 
-	public static Map<String, Long> getPlayerCooldowns(Player player) {
-		return cooldownMap.get(player);
+	public Map<String, Long> getPlayerCooldowns(UUID uuid) {
+		return cooldownMap.get(uuid);
 	}
 
-	public static void addCooldown(Player player, String type, long time) {
-		cooldownMap.get(player).put(type, time);
+	public void addCooldown(UUID uuid, String type, long time) {
+		if (cooldownMap.containsKey(uuid)) {
+			cooldownMap.get(uuid).put(type, time);
+			return;
+		}
+		Map<String, Long> tempCooldownMap = new HashMap<>();
+		tempCooldownMap.put(type, time);
+		cooldownMap.put(uuid, tempCooldownMap);
 	}
 
-	public static void putCooldown(Player player, Map<String, Long> cooldown) {
-		cooldownMap.put(player, cooldown);
-	}
-
-	public static void removeCooldown(Player player, String type) {
-		cooldownMap.remove(player).remove(type);
+	public void removeCooldown(UUID uuid, String type) {
+		cooldownMap.get(uuid).remove(type);
 	}
 }
