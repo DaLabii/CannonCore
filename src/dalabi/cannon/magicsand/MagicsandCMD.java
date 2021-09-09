@@ -15,35 +15,39 @@ public class MagicsandCMD implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (!sender.hasPermission(Config.magicsand_use_permission)) {
-				GeneralUtil.sendMSG(player, Config.magicsand_no_permission_message);
+			if (!sender.hasPermission(Config.getConfig().magicsand_use_permission)) {
+				GeneralUtil.sendMessage(player, Config.getConfig().magicsand_no_permission_message);
 				return false;
 			}
 			if (args.length == 0) {
-				GeneralUtil.sendMSG(player, Config.magicsand_invalid_args_message);
+				GeneralUtil.sendMessage(player, Config.getConfig().magicsand_invalid_args_message);
 				return false;
 			}
 			if (args.length == 1) {
 				switch (args[0].toLowerCase()) {
 				case "help":
-					GeneralUtil.sendMSG(player, "TODO");
+					for (String message : Config.getConfig().magicsand_help_messages) {
+						GeneralUtil.sendMessage(player, message);
+					}
 					break;
 				case "sand":
-					ItemStack sand = GeneralUtil.MakeItemStack(Config.magicsand_sand_item_material, 1,
-							Config.magicsand_sand_item_data, Config.magicsand_sand_item_name,
-							Config.magicsand_sand_item_lore);
+					ItemStack sand = GeneralUtil.MakeItemStack(Config.getConfig().magicsand_sand_item_material, 1,
+							Config.getConfig().magicsand_sand_item_data, Config.getConfig().magicsand_sand_item_name,
+							Config.getConfig().magicsand_sand_item_lore);
 					player.getInventory().addItem(sand);
 					break;
 				case "redsand":
-					ItemStack redsand = GeneralUtil.MakeItemStack(Config.magicsand_red_sand_item_material, 1,
-							Config.magicsand_red_sand_item_data, Config.magicsand_red_sand_item_name,
-							Config.magicsand_red_sand_item_lore);
+					ItemStack redsand = GeneralUtil.MakeItemStack(Config.getConfig().magicsand_red_sand_item_material,
+							1, Config.getConfig().magicsand_red_sand_item_data,
+							Config.getConfig().magicsand_red_sand_item_name,
+							Config.getConfig().magicsand_red_sand_item_lore);
 					player.getInventory().addItem(redsand);
 					break;
 				case "gravel":
-					ItemStack gravel = GeneralUtil.MakeItemStack(Config.magicsand_gravel_item_material, 1,
-							Config.magicsand_gravel_item_data, Config.magicsand_gravel_item_name,
-							Config.magicsand_gravel_item_lore);
+					ItemStack gravel = GeneralUtil.MakeItemStack(Config.getConfig().magicsand_gravel_item_material, 1,
+							Config.getConfig().magicsand_gravel_item_data,
+							Config.getConfig().magicsand_gravel_item_name,
+							Config.getConfig().magicsand_gravel_item_lore);
 					player.getInventory().addItem(gravel);
 					break;
 				case "refill":
@@ -58,11 +62,11 @@ public class MagicsandCMD implements CommandExecutor {
 
 					break;
 				default:
-					GeneralUtil.sendMSG(player, Config.magicsand_invalid_args_message);
+					GeneralUtil.sendMessage(player, Config.getConfig().magicsand_invalid_args_message);
 				}
 				return false;
 			} else {
-				GeneralUtil.sendMSG(player, Config.magicsand_invalid_args_message);
+				GeneralUtil.sendMessage(player, Config.getConfig().magicsand_invalid_args_message);
 			}
 		}
 		return false;
