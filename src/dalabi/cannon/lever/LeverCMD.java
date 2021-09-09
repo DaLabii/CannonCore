@@ -11,25 +11,25 @@ import org.bukkit.material.Lever;
 
 import dalabi.cannon.Config;
 import dalabi.cannon.GeneralUtil;
+import dalabi.cannon.Storage;
 
 public class LeverCMD implements CommandExecutor {
 
 	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player) {
-			final Player player = (Player) sender;
-			if (!player.hasPermission(Config.lever_command_permission)) {
-				GeneralUtil.sendMSG(player, Config.lever_no_permission_message);
+			Player player = (Player) sender;
+			if (!player.hasPermission(Config.getConfig().lever_command_permission)) {
+				GeneralUtil.sendMessage(player, Config.getConfig().lever_no_permission_message);
 				return false;
 			}
-			if (dalabi.cannon.lever.Lever.getLeverBlock(player.getUniqueId()) == null) {
-				GeneralUtil.sendMSG(player, Config.lever_not_found_message);
+			if (Storage.getStorage().getLeverBlock(player.getUniqueId()) == null) {
+				GeneralUtil.sendMessage(player, Config.getConfig().lever_not_found_message);
 				return false;
 			}
-			Block block = dalabi.cannon.lever.Lever.getLeverBlock(player.getUniqueId());
+			Block block = Storage.getStorage().getLeverBlock(player.getUniqueId());
 			if (block.getType() == Material.LEVER) {
 				Lever lever = (Lever) block.getState().getData();
-				// found some issues with it suddenly not updating when you are not loading the chunk, no clue why though
 				int data = block.getData();
 				data = data ^ 0x8;
 				block.setData((byte) data);
@@ -40,11 +40,13 @@ public class LeverCMD implements CommandExecutor {
 				supportState.setType(Material.AIR);
 				supportState.update(true, false);
 				initialSupportState.update(true);
-				GeneralUtil.sendMSG(player, Config.lever_flicked_message.replace("%x%", String.valueOf(block.getX()))
-						.replace("%y%", String.valueOf(block.getY())).replace("%z%", String.valueOf(block.getZ())));
+				GeneralUtil.sendMessage(player,
+						Config.getConfig().lever_flicked_message.replace("%x%", String.valueOf(block.getX()))
+								.replace("%y%", String.valueOf(block.getY()))
+								.replace("%z%", String.valueOf(block.getZ())));
 				return false;
 			}
-			GeneralUtil.sendMSG(player, Config.lever_not_found_message);
+			GeneralUtil.sendMessage(player, Config.getConfig().lever_not_found_message);
 		}
 		return false;
 	}
