@@ -6,6 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import dalabi.cannon.Storage;
+
 public class FireEvents implements Listener {
 	
 	@EventHandler
@@ -17,6 +19,6 @@ public class FireEvents implements Listener {
 		if (clicked != Material.STONE_BUTTON && clicked != Material.WOOD_BUTTON) {
 			return;
 		}
-		Fire.setButtonBlock(event.getPlayer().getUniqueId(), event.getClickedBlock());
+		Storage.getStorage().setButtonBlock(event.getPlayer().getUniqueId(), event.getClickedBlock());
 	}
 }
